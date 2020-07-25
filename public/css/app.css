@@ -1,3 +1,6 @@
-/*
-css file
- */
+.sample {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
