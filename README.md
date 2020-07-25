@@ -1,2 +1,2 @@
-# Finger app
+# Finger
 This is a test app.
