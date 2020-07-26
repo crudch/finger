@@ -1,6 +1,27 @@
+//Bootstrap
 //@import "variables";
 //@import "~bootstrap/scss/bootstrap";
 
-.test {
-    display: flex;
+
+// UIkit
+// 1. Your custom variables and variable overwrites.
+//$global-link-color: #DA7D02;
+
+$global-primary-background: #007bff !default;
+$global-secondary-background: #24b662 !default;
+$global-danger-background: #c9302c !default;
+
+// 2. Import default variables and available mixins.
+@import "~uikit/src/scss/variables-theme.scss";
+@import "~uikit/src/scss/mixins-theme.scss";
+
+// 3. Your custom mixin overwrites.
+@mixin hook-button() {
+    text-transform: $button-text-transform;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color, border-color;
+    border-radius: 6px;
 }
+
+// 4. Import UIkit.
+@import "~uikit/src/scss/uikit-theme.scss";

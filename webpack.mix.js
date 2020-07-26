@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 
-//mix.js('assets/js/app.js', `${__dirname}/public/js`);
+mix.js('assets/js/app.js', `${__dirname}/public/js`);
 
 mix.sass('assets/sass/app.scss', `${__dirname}/public/css`).options({
   autoprefixer: {

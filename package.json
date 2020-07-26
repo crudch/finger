@@ -11,6 +11,9 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
+    "uikit": "^3.5.5",
+    "popper.js": "^1.16.1",
+    "jquery": "^3.5.1",
     "axios": "^0.19",
     "bootstrap": "^4.5.0",
     "cross-env": "^7.0.2",

@@ -13,8 +13,16 @@ require dirname(__DIR__) . '/vendor/autoload.php';
     <title>Документ</title>
 </head>
 <body>
-<div class="container mt-5">
-    <button class="btn btn-primary">Очень длинная кнопка для нажатия</button>
+<div class="uk-container uk-margin-large-top">
+    <p uk-margin>
+        <button class="uk-button uk-button-default">Default</button>
+        <button class="uk-button uk-button-primary">Primary</button>
+        <button class="uk-button uk-button-secondary">Secondary</button>
+        <button class="uk-button uk-button-danger">Danger</button>
+        <button class="uk-button uk-button-text">Text</button>
+        <button class="uk-button uk-button-link">Link</button>
+    </p>
 </div>
+<script src="/js/app.js"></script>
 </body>
 </html>
