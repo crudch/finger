@@ -2,6 +2,8 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
+$articles = \App\Models\Article::all();
+
 ?>
 <!doctype html>
 <html lang="ru">
@@ -14,14 +16,8 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 </head>
 <body>
 <div class="uk-container uk-margin-large-top">
-    <p uk-margin>
-        <button class="uk-button uk-button-default">Default</button>
-        <button class="uk-button uk-button-primary">Primary</button>
-        <button class="uk-button uk-button-secondary">Secondary</button>
-        <button class="uk-button uk-button-danger">Danger</button>
-        <button class="uk-button uk-button-text">Text</button>
-        <button class="uk-button uk-button-link">Link</button>
-    </p>
+    <?php
+    var_dump($articles); ?>
 </div>
 <script src="/js/app.js"></script>
 </body>

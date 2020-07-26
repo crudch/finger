@@ -42,14 +42,12 @@ class Storage
      */
     protected function load(): void
     {
-        $columns = array_column((new ReflectionClass($this->className))->getProperties(), 'name');
-
         foreach (readStorage($this->path) as $line) {
             $class = new $this->className();
 
             $reflector = new ReflectionMethod($class, 'load');
             $reflector->setAccessible(true);
-            $reflector->invoke($class, array_combine($columns, explode('|', $line)));
+            $reflector->invoke($class, unserialize($line, ['allowed_classes' => true]));
 
             $this->data[] = $class;
         }
@@ -143,10 +141,9 @@ class Storage
      */
     protected function saveStorage(): bool
     {
-        $tmp = array_map(
-            static function ($object) {
-                return implode('|', $object->toArray());
-            },
+        $tmp = array_map(static function ($object) {
+            return serialize($object->toArray());
+        },
             $this->data
         );
 
@@ -176,6 +173,6 @@ class Storage
      */
     protected function generatePath(string $className): string
     {
-        return __DIR__ . '/../storage/' . $className::TABLE . '.db';
+        return __DIR__ . '/../../storage/' . $className::TABLE . '.db';
     }
 }
