@@ -2,8 +2,6 @@
 
 namespace App\System;
 
-use ReflectionClass;
-use ReflectionMethod;
 use ReflectionProperty;
 use ReflectionException;
 
@@ -27,8 +25,6 @@ class Storage
      * Storage constructor.
      *
      * @param string $className
-     *
-     * @throws ReflectionException
      */
     public function __construct(string $className)
     {
@@ -37,19 +33,11 @@ class Storage
         $this->load();
     }
 
-    /**
-     * @throws ReflectionException
-     */
+
     protected function load(): void
     {
         foreach (readStorage($this->path) as $line) {
-            $class = new $this->className();
-
-            $reflector = new ReflectionMethod($class, 'load');
-            $reflector->setAccessible(true);
-            $reflector->invoke($class, unserialize($line, ['allowed_classes' => true]));
-
-            $this->data[] = $class;
+            $this->data[] = unserialize($line, ['allowed_classes' => true]);
         }
     }
 
@@ -92,7 +80,6 @@ class Storage
      * @param $object
      *
      * @return bool
-     * @throws ReflectionException
      */
     public function save($object): bool
     {
@@ -123,10 +110,10 @@ class Storage
      * @param $object
      *
      * @return bool
-     * @throws ReflectionException
      */
     protected function insert($object): bool
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $ref = new ReflectionProperty($object, 'id');
         $ref->setAccessible(true);
         $ref->setValue($object, $this->getNextId());
@@ -141,8 +128,8 @@ class Storage
      */
     protected function saveStorage(): bool
     {
-        $tmp = array_map(static function ($object) {
-            return serialize($object->toArray());
+        $tmp = array_map(static function (Model $model) {
+            return serialize($model);
         },
             $this->data
         );
@@ -173,6 +160,7 @@ class Storage
      */
     protected function generatePath(string $className): string
     {
-        return __DIR__ . '/../../storage/' . $className::TABLE . '.db';
+        /** @noinspection PhpUndefinedFieldInspection */
+        return __DIR__ . '/../../storage/' . $className::$table . '.db';
     }
 }

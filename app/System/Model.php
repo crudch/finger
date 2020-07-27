@@ -22,12 +22,12 @@ class Model
      */
     protected ?int $id = null;
 
-    public function __construct()
-    {
-        if (property_exists(static::class, 'date')) {
-            $this->date = new AppDate();
-        }
-    }
+
+    /**
+     * @var string
+     */
+    public static string $table = '';
+
 
     public function __isset($name)
     {
@@ -55,25 +55,6 @@ class Model
     }
 
     /**
-     * @param string|AppDate $date
-     *
-     * @return AppDate
-     * @throws Exception
-     */
-    public function setDate($date): AppDate
-    {
-        if ($date instanceof AppDate) {
-            return $date;
-        }
-
-        if (!is_string($date)) {
-            throw new InvalidArgumentException('Некорректная передача данных');
-        }
-
-        return new AppDate($date);
-    }
-
-    /**
      * @param array $data
      *
      * @return $this
@@ -91,18 +72,12 @@ class Model
      * Сохраняет модель
      *
      * @return bool
-     * @throws ReflectionException
      */
     public function save(): bool
     {
         $storage = new Storage(static::class);
 
         return $storage->save($this);
-    }
-
-    public function toArray(): array
-    {
-        return get_object_vars($this);
     }
 
     public static function __callStatic($name, $arguments)
@@ -114,12 +89,5 @@ class Model
         }
 
         throw new BadMethodCallException("Вызван несуществующий метод {$name}");
-    }
-
-    final protected function load(array $data): void
-    {
-        foreach ($data as $name => $value) {
-            'id' === $name ? $this->id = $value : $this->__set($name, $value);
-        }
     }
 }

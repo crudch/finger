@@ -1,10 +1,3 @@
-<?php
-
-require dirname(__DIR__) . '/vendor/autoload.php';
-
-$articles = \App\Models\Article::all();
-
-?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -16,8 +9,7 @@ $articles = \App\Models\Article::all();
 </head>
 <body>
 <div class="uk-container uk-margin-large-top">
-    <?php
-    var_dump($articles); ?>
+
 </div>
 <script src="/js/app.js"></script>
 </body>
